@@ -1,21 +1,17 @@
-import React from "react";
-import "../App.css";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaLock } from "react-icons/fa6";
+import { AppContext } from "../context/AppContext";
+import "../App.css";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const { loginDetails, setLoginDetails } = useContext(AppContext);
 
   const changeHandler = (event) => {
-    setFormData((prevData) => ({
+    setLoginDetails((prevData) => ({
       ...prevData,
       [event.target.name]: event.target.value,
     }));
@@ -25,14 +21,16 @@ const Login = () => {
     event.preventDefault();
     //email validation
     if (
-      !formData.email.match(
+      !loginDetails.email.match(
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
       )
     ) {
       toast.error("Enter correct email");
       return;
     }
-    console.log("Printing the FormData ->>", formData);
+
+    //if validation passes
+    console.log("Printing the loginDetails ->", loginDetails);
     toast.success("Logged in");
     navigate("/dashboard");
   };
@@ -42,33 +40,38 @@ const Login = () => {
       <form className="container" onSubmit={submitHandler}>
         <h1>Login</h1>
         <div className="form-content">
+          {/* email */}
           <div className="input-field">
             <input
               required
               type="email"
-              value={formData.email}
+              value={loginDetails.email}
               onChange={changeHandler}
               placeholder="Enter email address"
               name="email"
             />
             <HiOutlineMail className="icon" />
           </div>
+
+          {/* password */}
           <div className="input-field">
             <input
               required
               type="password"
-              value={formData.password}
+              value={loginDetails.password}
               onChange={changeHandler}
               placeholder="Enter password"
               name="password"
             />
             <FaLock className="icon" />
           </div>
+
+          {/* login button */}
           <div className="login-div">
-            <button className="login-button">
-              Login
-            </button>
+            <button className="login-button">Login</button>
           </div>
+
+          {/* register text */}
           <div className="register-text">
             <p>
               New user?{" "}

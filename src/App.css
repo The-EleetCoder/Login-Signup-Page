@@ -17,7 +17,6 @@
 }
 
 .container {
-  /* background-color: #ffffffe9; */
   background-color: #ede5e5e1;
   height: 30rem;
   width: 25rem;
@@ -32,7 +31,6 @@
 }
 
 .signup-container {
-  /* background-color: #ffffffe9; */
   background-color: #ede5e5e1;
   height: 40rem;
   width: 30rem;
@@ -215,16 +213,39 @@
 .react-tel-input .form-control {
   position: relative;
   font-size: 14px;
-  letter-spacing: .01rem;
+  letter-spacing: 0.01rem;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   padding-left: 48px;
   margin-left: 0;
-  background: #F1F0EC !important;
-  border: 1px solid #CACACA;
+  background: #f1f0ec !important;
+  border: 1px solid #cacaca;
   border-radius: 5px;
   line-height: 25px;
   height: 35% !important;
-  width: 100% !important; 
+  width: 100% !important;
   outline: none;
+}
+
+/* css for Profile Picture */
+
+.profile-picture-container {
+  margin-top: -10%;
+}
+
+.box-decoration {
+  border: 15px solid #269fd3;
+  height: 125px;
+  width: 125px;
+  border-radius: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-display {
+  height: 120px;
+  width: 120px;
+  border-radius: 100%;
 }
