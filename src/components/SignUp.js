@@ -11,7 +11,7 @@ import ProfilePicture from "./ProfilePicture";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { registerDetails, setRegisterDetails } = useContext(AppContext);
+  const { registerDetails, setRegisterDetails, setIsLoggedIn } = useContext(AppContext);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -68,6 +68,7 @@ const SignUp = () => {
     }
 
     //if all the validation passes
+    setIsLoggedIn(true);
     console.log("Printing the registerDetails ->>", registerDetails);
     toast.success("Signed in successfully!");
     navigate("/dashboard");

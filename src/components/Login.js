@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { HiOutlineMail } from "react-icons/hi";
@@ -8,7 +8,7 @@ import "../App.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { loginDetails, setLoginDetails } = useContext(AppContext);
+  const { loginDetails, setLoginDetails, setIsLoggedIn } = useContext(AppContext);
 
   const changeHandler = (event) => {
     setLoginDetails((prevData) => ({
@@ -30,6 +30,7 @@ const Login = () => {
     }
 
     //if validation passes
+    setIsLoggedIn(true);
     console.log("Printing the loginDetails ->", loginDetails);
     toast.success("Logged in");
     navigate("/dashboard");

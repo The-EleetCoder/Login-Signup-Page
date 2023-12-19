@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
+import { toast } from "react-hot-toast";
 import { AppContext } from "../context/AppContext";
 
 const Dashboard = () => {
-  const { registerDetails, profilePicture } = useContext(AppContext);
+  const { registerDetails, profilePicture, setIsLoggedIn } =
+    useContext(AppContext);
   const { firstName, lastName, email, password, phoneNumber } = registerDetails;
   return (
     <div>
@@ -26,6 +28,18 @@ const Dashboard = () => {
         ) : (
           <img src=".././assets/dummyPic.png" className="img-display" />
         )}
+      </div>
+
+      {/* log out button */}
+      <div>
+        <button
+          onClick={() => {
+            setIsLoggedIn(false);
+            toast.success("Logged out successfully!");
+          }}
+        >
+          Log out
+        </button>
       </div>
     </div>
   );
