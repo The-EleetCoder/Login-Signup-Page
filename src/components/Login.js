@@ -4,11 +4,12 @@ import { toast } from "react-hot-toast";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaLock } from "react-icons/fa6";
 import { AppContext } from "../context/AppContext";
+import axios from "axios";
 import "../App.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { loginDetails, setLoginDetails, setIsLoggedIn } = useContext(AppContext);
+  const { loginDetails, setLoginDetails, setIsLoggedIn, baseURL } = useContext(AppContext);
 
   const changeHandler = (event) => {
     setLoginDetails((prevData) => ({
@@ -30,10 +31,24 @@ const Login = () => {
     }
 
     //if validation passes
-    setIsLoggedIn(true);
-    console.log("Printing the loginDetails ->", loginDetails);
-    toast.success("Logged in");
-    navigate("/dashboard");
+
+    // calling api and sending data to server
+    axios
+      .post(`${baseURL}/users/login`, {
+        email: loginDetails.email,
+        password: loginDetails.password,
+      })
+      .then(() => {
+        console.log("Details posted successfully!");
+        setIsLoggedIn(true);
+        console.log("Printing the loginDetails ->", loginDetails);
+        toast.success("Logged in");
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(`${err.message}`);
+      });
   };
 
   return (

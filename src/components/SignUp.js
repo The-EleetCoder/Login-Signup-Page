@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -8,10 +8,12 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import ProfilePicture from "./ProfilePicture";
+import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { registerDetails, setRegisterDetails, setIsLoggedIn } = useContext(AppContext);
+  const { registerDetails, setRegisterDetails, setIsLoggedIn, baseURL } =
+    useContext(AppContext);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -68,10 +70,25 @@ const SignUp = () => {
     }
 
     //if all the validation passes
-    setIsLoggedIn(true);
-    console.log("Printing the registerDetails ->>", registerDetails);
-    toast.success("Signed in successfully!");
-    navigate("/dashboard");
+
+    // calling api and sending data to server
+    axios
+      .post(`${baseURL}/signup`, {
+        username: `${registerDetails.firstName} ${registerDetails.lastName}`,
+        email: registerDetails.email,
+        password: registerDetails.password,
+      })
+      .then(() => {
+        console.log("Details posted successfully!");
+        setIsLoggedIn(true);
+        console.log("Printing the registerDetails ->>", registerDetails);
+        toast.success("Signed in successfully!");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error signing up. Please try again.");
+      });
   };
 
   return (

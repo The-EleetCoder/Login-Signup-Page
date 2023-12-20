@@ -19,6 +19,7 @@ export function AppContextProvider({ children }) {
     email: "",
     password: "",
   });
+  const baseURL = "https://fafe-116-68-245-189.ngrok-free.app";
 
   // object which contains all the required data
   const value = {
@@ -29,7 +30,8 @@ export function AppContextProvider({ children }) {
     profilePicture,
     setProfilePicture,
     loginDetails,
-    setLoginDetails
+    setLoginDetails,
+    baseURL
   };
 
   // returning the provider
